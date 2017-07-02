@@ -1,0 +1,16 @@
+- name: Install JDK
+  package: name=java-1.8.0-openjdk
+
+- name: Jenkins rpm key
+  rpm_key:
+    state: present
+    key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+- name: Jenkins rpm repo
+  copy: src=jenkins.repo dest=/etc/yum.repos.d/jenkins.repo
+
+- name: Install Jenkins
+  package: name=jenkins
+
+- name: Start Jenkins
+  service: name=jenkins enabled=yes state=started
